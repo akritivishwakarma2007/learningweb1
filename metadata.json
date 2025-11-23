@@ -1,0 +1,5 @@
+{
+  "name": "learningweb",
+  "description": "A responsive, modern programming learning platform featuring dynamic content and AI-powered tutoring using Google Gemini.",
+  "requestFramePermissions": []
+}
