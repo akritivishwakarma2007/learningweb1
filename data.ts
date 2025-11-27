@@ -5,6 +5,7 @@ import { typescriptContent } from './data/typescript';
 import { javaContent } from './data/java';
 import { goContent } from './data/go';
 import { cppContent } from './data/cpp';
+import { cssContent } from './data/css';
 
 // ==========================================
 // CODE MASTERY AI CONTENT DATABASE
@@ -52,6 +53,13 @@ export const LANGUAGES: Language[] = [
     description: 'High-performance language used in game dev, systems programming, and finance.',
     color: 'from-blue-600 to-blue-800',
     icon: 'Cpp'
+  },
+  {
+    id: 'css',
+    name: 'CSS',
+    description: 'Style the web. Master selectors, layouts, and responsive design principles.',
+    color: 'from-blue-400 to-indigo-500',
+    icon: 'CSS'
   }
 ];
 
@@ -61,5 +69,6 @@ export const CONTENT: ContentDatabase = {
   typescript: typescriptContent,
   java: javaContent,
   go: goContent,
-  cpp: cppContent
+  cpp: cppContent,
+  css: cssContent
 };

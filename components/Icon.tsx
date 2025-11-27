@@ -15,7 +15,8 @@ import {
   FileCode, // For TypeScript
   Zap,       // For Go
   Sun,
-  Moon
+  Moon,
+  Palette // For CSS
 } from 'lucide-react';
 
 interface IconProps {
@@ -29,10 +30,10 @@ export const Icon: React.FC<IconProps> = ({ name, className, size = 24 }) => {
     case 'Python': return <Terminal size={size} className={className} />;
     case 'Javascript': return <Code size={size} className={className} />;
     case 'Cpp': return <Cpu size={size} className={className} />;
-    // New Languages
     case 'Java': return <Coffee size={size} className={className} />;
     case 'TypeScript': return <FileCode size={size} className={className} />;
     case 'Go': return <Zap size={size} className={className} />;
+    case 'CSS': return <Palette size={size} className={className} />;
     
     // UI Icons
     case 'ChevronRight': return <ChevronRight size={size} className={className} />;
