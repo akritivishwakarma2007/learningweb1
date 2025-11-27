@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 
 // Initialize the client
@@ -7,7 +8,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const askGeminiTutor = async (
   language: string,
-  topic: string,
+  subTopicTitle: string,
   currentCode: string,
   userQuestion: string
 ): Promise<string> => {
@@ -17,7 +18,7 @@ export const askGeminiTutor = async (
     const prompt = `
       You are an expert programming tutor.
       The student is learning ${language}.
-      Current Topic: ${topic}.
+      Current Sub-Topic: ${subTopicTitle}.
       
       Code Context:
       \`\`\`
@@ -45,11 +46,11 @@ export const askGeminiTutor = async (
   }
 };
 
-export const generateNewExercise = async (language: string, level: string, topic: string): Promise<string> => {
+export const generateNewExercise = async (language: string, level: string, subTopicTitle: string): Promise<string> => {
     try {
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
-            contents: `Generate a new, unique, short coding exercise for ${language} (${level} level) regarding the topic "${topic}". Include a brief problem statement and expected output. Do not provide the solution code.`,
+            contents: `Generate a new, unique, short coding exercise for ${language} (${level} level) regarding the sub-topic "${subTopicTitle}". Include a brief problem statement and expected output. Do not provide the solution code.`,
         });
         return response.text || "Could not generate exercise.";
     } catch (error) {

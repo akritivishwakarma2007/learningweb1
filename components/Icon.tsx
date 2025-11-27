@@ -13,7 +13,9 @@ import {
   CheckCircle,
   Coffee,   // For Java
   FileCode, // For TypeScript
-  Zap       // For Go
+  Zap,       // For Go
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface IconProps {
@@ -41,6 +43,8 @@ export const Icon: React.FC<IconProps> = ({ name, className, size = 24 }) => {
     case 'MessageSquare': return <MessageSquare size={size} className={className} />;
     case 'Play': return <Play size={size} className={className} />;
     case 'CheckCircle': return <CheckCircle size={size} className={className} />;
+    case 'Sun': return <Sun size={size} className={className} />;
+    case 'Moon': return <Moon size={size} className={className} />;
     default: return <Code size={size} className={className} />;
   }
 };

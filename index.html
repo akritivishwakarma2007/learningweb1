@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             fontFamily: {
@@ -15,11 +16,10 @@
               mono: ['JetBrains Mono', 'monospace'],
             },
             colors: {
-              primary: '#3b82f6',
-              secondary: '#10b981',
-              dark: '#0f172a',
-              darker: '#020617',
-              card: '#1e293b',
+              primary: '#2563eb', // Blue 600
+              secondary: '#10b981', // Emerald 500
+              surface: '#ffffff',
+              background: '#f8fafc', // Slate 50
             }
           }
         }
@@ -27,23 +27,39 @@
     </script>
     <style>
       body {
-        background-color: #0f172a;
-        color: #e2e8f0;
+        background-color: #f8fafc;
+        color: #1e293b;
+        transition: background-color 0.3s, color 0.3s;
       }
-      /* Custom scrollbar */
+      /* Custom scrollbar - Light Mode */
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #1e293b;
+        background: #f1f5f9;
       }
       ::-webkit-scrollbar-thumb {
-        background: #475569;
+        background: #cbd5e1;
         border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #64748b;
+        background: #94a3b8;
+      }
+
+      /* Dark Mode Styles */
+      .dark body {
+        background-color: #020617; /* Slate 950 */
+        color: #f8fafc;
+      }
+      .dark ::-webkit-scrollbar-track {
+        background: #0f172a;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #334155;
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
+        background: #475569;
       }
     </style>
   <script type="importmap">
