@@ -6,10 +6,13 @@ import { javaContent } from './data/java';
 import { goContent } from './data/go';
 import { cppContent } from './data/cpp';
 import { cssContent } from './data/css';
-
-// ==========================================
-// CODE MASTERY AI CONTENT DATABASE
-// ==========================================
+import { htmlContent } from './data/html';
+import { rubyContent } from './data/ruby';
+import { phpContent } from './data/php';
+import { cContent } from './data/c';
+import { sqlContent } from './data/sql';
+import { swiftContent } from './data/swift';
+import { kotlinContent } from './data/kotlin';
 
 export const LANGUAGES: Language[] = [
   {
@@ -55,11 +58,60 @@ export const LANGUAGES: Language[] = [
     icon: 'Cpp'
   },
   {
-    id: 'css',
-    name: 'CSS',
-    description: 'Style the web. Master selectors, layouts, and responsive design principles.',
-    color: 'from-blue-400 to-indigo-500',
-    icon: 'CSS'
+    id: 'c',
+    name: 'C',
+    description: 'The mother of all languages. Low-level memory management and high performance.',
+    color: 'from-slate-500 to-slate-700',
+    icon: 'C'
+  },
+  {
+    id: 'html',
+    name: 'HTML / CSS',
+    description: 'The building blocks of the web. Structure content and style it beautifully.',
+    color: 'from-orange-500 to-blue-500',
+    icon: 'HTML'
+  },
+  {
+    id: 'ruby',
+    name: 'Ruby',
+    description: 'A dynamic, open source programming language with a focus on simplicity and productivity.',
+    color: 'from-red-600 to-red-800',
+    icon: 'Ruby'
+  },
+  {
+    id: 'php',
+    name: 'PHP',
+    description: 'A popular general-purpose scripting language that is especially suited to web development.',
+    color: 'from-indigo-400 to-indigo-600',
+    icon: 'PHP'
+  },
+  {
+    id: 'sql',
+    name: 'SQL',
+    description: 'Standard language for storing, manipulating and retrieving data in databases.',
+    color: 'from-pink-500 to-rose-500',
+    icon: 'SQL'
+  },
+  {
+    id: 'plsql',
+    name: 'PL/SQL',
+    description: 'Oracle procedural extension for SQL.',
+    color: 'from-red-500 to-orange-600',
+    icon: 'PL/SQL'
+  },
+  {
+    id: 'swift',
+    name: 'Swift',
+    description: 'Powerful and intuitive programming language for iOS, iPadOS, macOS, tvOS, and watchOS.',
+    color: 'from-orange-500 to-red-500',
+    icon: 'Swift'
+  },
+  {
+    id: 'kotlin',
+    name: 'Kotlin',
+    description: 'A modern programming language that makes developers happier. Official language for Android.',
+    color: 'from-purple-500 to-violet-500',
+    icon: 'Kotlin'
   }
 ];
 
@@ -70,5 +122,13 @@ export const CONTENT: ContentDatabase = {
   java: javaContent,
   go: goContent,
   cpp: cppContent,
-  css: cssContent
+  c: cContent,
+  html: { ...htmlContent, ...cssContent }, // Merge HTML/CSS for the combined view if needed, or handle logic in App.tsx
+  ruby: rubyContent,
+  php: phpContent,
+  sql: sqlContent,
+  plsql: sqlContent, // Reusing SQL content for now as placeholder or if similar structure intended
+  swift: swiftContent,
+  kotlin: kotlinContent,
+  css: cssContent // Keep standalone accessible if needed
 };
