@@ -939,8 +939,65 @@ print(marks)
         ]
       },
       {
+        id: 'py-int-tuples-sets',
+        title: '3. Tuples & Sets',
+        subTopics: [
+          {
+            id: 'py-i-tuples',
+            title: 'Tuples',
+            content: "Tuples are like lists but **cannot be changed** (immutable) after creation. They are faster and used when data should not be modified.\n\nKey features:\n- Created with `()`\n- Immutable (safe)\n- Can be used as dictionary keys\n- Support unpacking",
+            codeExamples: [
+              {
+                title: "Creating Tuples",
+                code: `point = (10, 20)
+colors = ("red", "green", "blue")
+
+print(point[0])  # 10
+# point[0] = 5   # Error! Cannot modify`
+              },
+              {
+                title: "Tuple Unpacking",
+                code: `x, y = (5, 10)
+print(x)  # 5
+print(y)  # 10
+
+name, age, city = ("Alice", 25, "Delhi")
+print(f"{name} is {age} from {city}")`
+              }
+            ],
+            exercise: "Create a tuple of 3 subjects. Unpack them into variables and print: 'I study math, science, and english'"
+          },
+          {
+            id: 'py-i-sets',
+            title: 'Sets',
+            content: "Sets store **unique items only**. Great for removing duplicates and fast membership testing.\n\nKey features:\n- No duplicates\n- Unordered\n- Fast `in` checks\n- Math operations: union, intersection, difference",
+            codeExamples: [
+              {
+                title: "Creating Sets",
+                code: `fruits = {"apple", "banana", "apple"}  # Duplicate ignored
+print(fruits)  # {'apple', 'banana'}
+
+nums = {1, 2, 3, 3, 4}
+print(nums)    # {1, 2, 3, 4}`
+              },
+              {
+                title: "Set Operations",
+                code: `a = {1, 2, 3}
+b = {3, 4, 5}
+
+print(a | b)  # Union: {1, 2, 3, 4, 5}
+print(a & b)  # Intersection: {3}
+print(a - b)  # Difference: {1, 2}
+print(a ^ b)  # Symmetric difference: {1, 2, 4, 5}`
+              }
+            ],
+            exercise: "Take a list with duplicates `[1, 2, 2, 3, 3, 3]`, convert to set, then back to list to remove duplicates."
+          }
+        ]
+      },
+      {
         id: 'py-int-oop',
-        title: '3. Object Oriented Programming',
+        title: '4. Object oriented programming',
         subTopics: [
           {
             id: 'py-i-oop-1',
@@ -1016,12 +1073,42 @@ print(s.name, s.grade)`
               }
             ],
             exercise: "Create a class `Shape` with method `area()`. Create child classes `Rectangle` and `Circle` that override `area()`."
-          }
+          },
+          {
+  id: 'py-i-oop-3',
+  title: 'Encapsulation & Magic Methods',
+  content: "Protect data with private variables (`__var`) and customize object behavior with magic methods (`__str__`, `__add__`).",
+  codeExamples: [
+    {
+      title: "Encapsulation",
+      code: `class Bank:
+    def __init__(self):
+        self.__balance = 0 # Private
+    
+    def deposit(self, amt):
+        self.__balance += amt`
+    },
+    {
+      title: "Magic Methods",
+      code: `class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+        
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)`
+    }
+  ],
+  exercise: "Create a class with a private variable. Try accessing it directly (error) and via a getter method."
+}
         ]
       },
       {
         id: 'py-int-err',
-        title: '4. Error Handling',
+        title: '5. Error Handling',
         subTopics: [
           {
             id: 'py-i-err-1',
@@ -1056,7 +1143,7 @@ except ValueError as e:
       },
       {
         id: 'py-int-mod',
-        title: '5. Modules & Packages',
+        title: '6. Modules & Packages',
         subTopics: [
           {
             id: 'py-i-mod-1',
@@ -1088,7 +1175,7 @@ print(result)`
       },
       {
         id: 'py-int-file',
-        title: '6. File Handling',
+        title: '7. File Handling',
         subTopics: [
           {
             id: 'py-i-file-1',
@@ -1105,58 +1192,70 @@ with open("sample.txt", "w") as f:
 with open("sample.txt", "r") as f:
     content = f.read()
     print(content)`
-              },
-              {
-                title: "JSON Files",
-                code: `import json
-
-data = {"name": "Alice", "score": 90}
-
-# Write JSON
-with open("data.json", "w") as f:
-    json.dump(data, f)
-
-# Read JSON
-with open("data.json", "r") as f:
-    loaded_data = json.load(f)
-    print(loaded_data["name"])`
               }
             ],
             exercise: "Write a script that writes a list of 3 colors to 'colors.txt', each on a new line."
           },
           {
-            id: 'py-i-file-2',
-            title: 'CSV Files',
-            content: "CSV (Comma Separated Values) is common for data storage. Python's `csv` module handles parsing.",
+            id: 'py-i-json-full',
+            title: 'Working with JSON',
+            content: "JSON is the most common format for storing and exchanging data. Python has built-in support.",
             codeExamples: [
               {
-                title: "Reading CSV",
-                code: `import csv
+                title: "Save & Load",
+                code: `import json
 
-# Assuming marks.csv exists
-with open("marks.csv", "r") as f:
-    reader = csv.reader(f)
-    for row in reader:
-        print(row) # Prints list of columns`
-              },
-              {
-                title: "Writing CSV",
-                code: `import csv
+# Save
+students = [
+    {"name": "Ram", "grade": "A"},
+    {"name": "Priya", "grade": "B+"}
+]
 
-rows = [["Name", "Score"], ["Ram", 90], ["Priya", 95]]
+with open("students.json", "w") as f:
+    json.dump(students, f, indent=2)
 
-with open("output.csv", "w", newline="") as f:
-    writer = csv.writer(f)
-    writer.writerows(rows)`
+# Load
+with open("students.json") as f:
+    loaded = json.load(f)
+    print(loaded[0]["name"])`
               }
             ],
-            exercise: "Write code to read a CSV file and print only the first column of each row."
+            exercise: "Save a quiz with 3 questions (question, options, answer) to 'quiz.json'"
+          },
+          {
+            id: 'py-i-csv-full',
+            title: 'Working with CSV',
+            content: "CSV files are used everywhere: Excel, Google Sheets, databases.",
+            codeExamples: [
+              {
+                title: "Write & Read CSV",
+                code: `import csv
+
+# Write
+data = [
+    ["Name", "Age", "City"],
+    ["Alice", 25, "Delhi"],
+    ["Bob", 30, "Mumbai"]
+]
+
+with open("people.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerows(data)
+
+# Read
+with open("people.csv") as f:
+    reader = csv.reader(f)
+    for row in reader:
+        print(row)`
+              }
+            ],
+            exercise: "Create 'expenses.csv' with columns: date, item, amount"
           }
         ]
       },
       {
         id: 'py-int-api',
-        title: '7. APIs & Networking',
+        title: '8. APIs & Networking',
         subTopics: [
           {
             id: 'py-i-api-1',
@@ -1192,7 +1291,7 @@ except requests.exceptions.RequestException as e:
       },
       {
         id: 'py-int-venv',
-        title: '8. Virtual Environments',
+        title: '9. Virtual Environments',
         subTopics: [
           {
             id: 'py-i-venv-1',
@@ -1228,7 +1327,7 @@ pip install -r requirements.txt`
       },
       {
         id: 'py-int-proj',
-        title: '9. Intermediate Projects',
+        title: '10. Intermediate Projects',
         subTopics: [
           {
             id: 'py-i-proj-1',

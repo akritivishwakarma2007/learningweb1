@@ -2,342 +2,844 @@ import { LanguageContent } from '../types';
 
 export const javascriptContent: LanguageContent = {
   Beginner: {
-    introduction: "🟢 Level 1: Beginner. Understand core concepts, DOM manipulation, and write simple interactive programs.",
+    introduction: "Level 1: Beginner. Master JavaScript fundamentals, DOM manipulation, events, and build real interactive web apps from scratch. No prior knowledge needed.",
     topics: [
       {
         id: 'js-beg-intro',
-        title: '1. Introduction',
+        title: '1. Introduction & Setup',
         subTopics: [
           {
             id: 'js-b-intro-1',
             title: 'What is JavaScript?',
-            content: "JavaScript (JS) is a lightweight, interpreted programming language primarily used for creating interactive web pages. Unlike Java, which is a standalone language, JS runs in the browser.\n\n*   **Frontend**: UI, animations, interactivity.\n*   **Backend**: Node.js (Server-side logic).",
+            content: "JavaScript is the only programming language that runs in every web browser. It makes websites interactive — from simple button clicks to complex apps like Gmail or Facebook.\n\n• Created in 1995 by Brendan Eich\n• Originally called 'Mocha', then 'LiveScript', finally 'JavaScript'\n• Runs on the client (browser) and server (Node.js)\n• One of the 3 core web technologies: HTML + CSS + JavaScript",
             codeExamples: [
               {
-                title: "Linking JS",
+                title: "Your First JavaScript",
                 code: `<script>
   console.log("Hello, World!");
+  alert("Welcome to JavaScript!");
 </script>`
+              },
+              {
+                title: "External File (Recommended)",
+                code: `<!-- index.html -->
+<script src="script.js"></script>
+
+<!-- script.js -->
+console.log("Loaded from external file!");`
               }
             ],
-            exercise: "Create an HTML file and link an external 'script.js' file that alerts 'Welcome!' when the page loads."
+            exercise: "Create an HTML file with a button. When clicked, show an alert saying 'Button Clicked!' using inline script first, then move it to external file."
+          },
+          {
+            id: 'js-b-intro-2',
+            title: 'Tools You Need',
+            content: "Best free setup in 2025:\n\n1. VS Code (code editor)\n2. Live Server extension (instant preview)\n3. Chrome/Firefox browser\n\nPro Tip: Use F12 → Console tab to see errors and console.log() output.",
+            codeExamples: [
+              {
+                title: "Console is Your Best Friend",
+                code: `console.log("Debugging message");
+console.warn("Warning!");
+console.error("Something went wrong!");`
+              }
+            ],
+            exercise: "Open any website, press F12, type alert('Hacked!') in console and press Enter. See what happens!"
           }
         ]
       },
+
       {
         id: 'js-beg-basics',
-        title: '2. Basics',
+        title: '2. Variables & Data Types',
         subTopics: [
           {
             id: 'js-b-base-1',
-            title: 'Variables',
-            content: "Variables serve as containers for storing data values. Modern JavaScript (ES6+) provides three ways to declare variables: `var`, `let`, and `const`.\n\n*   `var`: Function-scoped, can be redeclared (Avoid using in modern code).\n*   `let`: Block-scoped, can be reassigned but not redeclared in the same scope.\n*   `const`: Block-scoped, cannot be reassigned (immutable reference).",
+            title: 'Variables (let, const, var)',
+            content: "Variables store data. Modern JavaScript uses:\n\n• const → cannot be reassigned (use 90% of time)\n• let → can be reassigned\n• var → old way, avoid (has scope bugs)",
             codeExamples: [
               {
-                title: "Variable Declaration",
-                code: `// Best Practice
-let name = "Alice";
-const pi = 3.14;
+                title: "Good vs Bad Practice",
+                code: `const name = "Rahul";     // Can't change
+let age = 22;              // Can change
+age = 23;                  // OK
 
-// Legacy (Avoid)
-var old = "legacy";`
+// Don't use var
+var city = "Delhi";        // Avoid!`
               },
               {
-                title: "Scoping Difference",
+                title: "Block Scope Example",
                 code: `if (true) {
-    let a = 10;
-    var b = 20;
+    let x = 10;
+    const y = 20;
+    var z = 30;
 }
-// console.log(a); // Error: a is not defined
-console.log(b); // 20 (var leaks scope)`
+// console.log(x); // Error!
+// console.log(y); // Error!
+console.log(z);    // 30 (var leaks!)`
               }
             ],
-            exercise: "Declare a `const` for your birth year and a `let` for your current age. Try to reassign both and observe the error for the constant."
+            exercise: "Create const for your name and birth year. Try to reassign them. See what error appears for const."
           },
           {
             id: 'js-b-base-2',
-            title: 'Data Types',
-            content: "JavaScript is dynamically typed. \n\n**Primitives** (Immutable):\n*   `string`: \"Hello\"\n*   `number`: 10, 3.14\n*   `boolean`: true, false\n*   `null`: Intentional absence of value\n*   `undefined`: Uninitialized variable\n*   `bigint`: Large integers\n*   `symbol`: Unique identifiers\n\n**Non-Primitives** (Mutable):\n*   `object` (includes arrays, functions)",
+            title: '8 Primitive Data Types',
+            content: "JavaScript has 8 basic types:\n\n1. string → text\n2. number → integers & decimals\n3. boolean → true/false\n4. undefined → not assigned\n5. null → intentionally empty\n6. bigint → very large numbers\n7. symbol → unique identifiers\n8. object → complex data (arrays, functions, etc.)",
             codeExamples: [
               {
-                title: "Types",
-                code: `let isUser = true;      // boolean
-let empty = null;       // null
-let unknown;            // undefined
-let big = 9007199254740991n; // bigint`
-              },
-              {
-                title: "Checking Types",
-                code: `console.log(typeof "text"); // "string"
-console.log(typeof 100);    // "number"
-console.log(typeof null);   // "object" (known JS bug)`
+                title: "All Primitive Types",
+                code: `const name = "Priya";           // string
+const score = 95.5;              // number
+const isPassed = true;           // boolean
+let job;                         // undefined
+const empty = null;              // null
+const huge = 123456789012345n;   // bigint
+const id = Symbol("id");         // symbol
+
+console.log(typeof score);       // "number"
+console.log(typeof null);        // "object" (famous bug!)`
               }
             ],
-            exercise: "Create variables for each primitive type and log their types using `typeof`."
+            exercise: "Create one variable of each type and use typeof to check them."
           },
           {
             id: 'js-b-base-3',
             title: 'Operators',
-            content: "Perform operations on variables.\n*   **Arithmetic**: `+`, `-`, `*`, `/`, `%` (remainder), `**` (exponent)\n*   **Comparison**: `==` (value), `===` (value & type), `!=`, `!==`\n*   **Logical**: `&&` (AND), `||` (OR), `!` (NOT)\n*   **Assignment**: `=`, `+=`, `-=`",
+            content: "Operators perform actions on values:\n\n• Arithmetic: +, -, *, /, %, ** (power)\n• Assignment: =, +=, -=, *=\n• Comparison: == (loose), === (strict), >, <, >=, <=\n• Logical: && (AND), || (OR), ! (NOT)",
             codeExamples: [
               {
                 title: "Strict vs Loose Equality",
-                code: `console.log(5 == "5");  // true (type coercion)
-console.log(5 === "5"); // false (recommended)`
+                code: `console.log(5 == "5");   // true (converts type)
+console.log(5 === "5");  // false (recommended!)
+console.log("hello" != "Hello"); // true (case sensitive)`
               },
               {
                 title: "Logical Operators",
                 code: `const age = 20;
-const hasID = true;
+const hasLicense = true;
 
-if (age > 18 && hasID) {
-    console.log("Allowed entry");
-}`
-              }
-            ],
-            exercise: "Write an expression using the ternary operator `? :` to check if a number is even or odd."
-          }
-        ]
-      },
-      {
-        id: 'js-beg-ctrl',
-        title: '3. Control Statements',
-        subTopics: [
-          {
-            id: 'js-b-ctrl-1',
-            title: 'Conditionals (If/Else/Switch)',
-            content: "Control the flow of execution based on conditions.",
-            codeExamples: [
-              {
-                title: "If-Else",
-                code: `let time = 20;
-if (time < 12) {
-    console.log("Good morning");
-} else if (time < 18) {
-    console.log("Good afternoon");
-} else {
-    console.log("Good evening");
+if (age >= 18 && hasLicense) {
+    console.log("Can drive");
+}
+
+if (age < 13 || age > 60) {
+    console.log("Special care needed");
 }`
               },
               {
-                title: "Switch",
-                code: `const role = "admin";
-switch(role) {
-    case "admin": console.log("Full Access"); break;
-    case "user": console.log("Read Access"); break;
-    default: console.log("No Access");
+                title: "Ternary Operator",
+                code: `const result = age >= 18 ? "Adult" : "Minor";
+console.log(result); // Adult`
+              }
+            ],
+            exercise: "Write a ternary expression: if temperature > 30 → 'Hot', else → 'Cold'"
+          }
+        ]
+      },
+
+      {
+        id: 'js-beg-ctrl',
+        title: '3. Control Flow',
+        subTopics: [
+          {
+            id: 'js-b-ctrl-1',
+            title: 'if / else if / else',
+            content: "Make decisions in code based on conditions.",
+            codeExamples: [
+              {
+                title: "Grade System",
+                code: `const marks = 88;
+
+if (marks >= 90) {
+    console.log("A+ Grade");
+} else if (marks >= 80) {
+    console.log("A Grade");
+} else if (marks >= 70) {
+    console.log("B Grade");
+} else {
+    console.log("Need improvement");
+}`
+              },
+              {
+                title: "Nested Conditions",
+                code: `const isRaining = true;
+const hasUmbrella = false;
+
+if (isRaining) {
+    if (hasUmbrella) {
+        console.log("Go out safely");
+    } else {
+        console.log("Stay home!");
+    }
 }`
               }
             ],
-            exercise: "Write a switch statement that prints the name of the day based on a number (1-7)."
+            exercise: "Write a program that takes a number and prints 'Positive', 'Negative', or 'Zero'."
           },
           {
             id: 'js-b-ctrl-2',
-            title: 'Loops',
-            content: "Repeat code blocks.\n*   `for`: Standard loop.\n*   `while`: Loop until condition false.\n*   `do-while`: Execute at least once.",
+            title: 'switch Statement',
+            content: "Alternative to long if-else chains when comparing one value.",
             codeExamples: [
               {
-                title: "For Loop",
-                code: `for (let i = 0; i < 5; i++) {
-    console.log("Iteration " + i);
+                title: "Day Name from Number",
+                code: `const day = 3;
+let dayName;
+
+switch (day) {
+    case 1: dayName = "Monday"; break;
+    case 2: dayName = "Tuesday"; break;
+    case 3: dayName = "Wednesday"; break;
+    case 4: dayName = "Thursday"; break;
+    case 5: dayName = "Friday"; break;
+    case 6: dayName = "Saturday"; break;
+    case 7: dayName = "Sunday"; break;
+    default: dayName = "Invalid day";
+}
+
+console.log("Today is " + dayName);`
+              }
+            ],
+            exercise: "Create a switch that converts month number (1-12) to month name."
+          },
+          {
+            id: 'js-b-ctrl-3',
+            title: 'Loops (for, while, do-while)',
+            content: "Repeat code multiple times.",
+            codeExamples: [
+              {
+                title: "For Loop (Most Used)",
+                code: `// Print 1 to 10
+for (let i = 1; i <= 10; i++) {
+    if (i === 5) continue;  // skip 5
+    if (i === 8) break;     // stop at 8
+    console.log(i);
 }`
               },
               {
                 title: "While Loop",
-                code: `let count = 0;
-while (count < 3) {
-    console.log(count);
-    count++;
+                code: `let count = 5;
+while (count > 0) {
+    console.log("Countdown: " + count);
+    count--;
 }`
+              },
+              {
+                title: "Do-While (Runs at least once)",
+                code: `let password;
+do {
+    password = prompt("Enter password:");
+} while (password !== "1234");
+alert("Access granted!");`
               }
             ],
-            exercise: "Use a `for` loop to verify if a number is prime."
+            exercise: "Use a for loop to print multiplication table of 5 (5 × 1 = 5 ... 5 × 10 = 50)."
           }
         ]
       },
+
       {
         id: 'js-beg-func',
         title: '4. Functions',
         subTopics: [
           {
             id: 'js-b-func-1',
-            title: 'Function Types',
-            content: "Functions are reusable blocks of code.\n1.  **Declaration**: Hoisted (can call before defining).\n2.  **Expression**: Not hoisted.\n3.  **Arrow**: Concise syntax, lexical `this`.",
+            title: 'Function Declaration & Expression',
+            content: "Functions are reusable code blocks.",
             codeExamples: [
               {
-                title: "Declaration vs Expression",
-                code: `// Declaration
-function add(a, b) { return a + b; }
+                title: "Function Declaration (Hoisted)",
+                code: `greet("Ram"); // Works even before declaration!
 
-// Expression
-const subtract = function(a, b) { return a - b; };`
+function greet(name) {
+    console.log("Hello " + name);
+}`
               },
               {
-                title: "Arrow Function",
-                code: `const multiply = (a, b) => a * b;
-const square = n => n * n; // implicit return`
+                title: "Function Expression (Not Hoisted)",
+                code: `// greet("Shyam"); // Error!
+
+const greet = function(name) {
+    console.log("Hi " + name);
+};`
               }
             ],
-            exercise: "Convert `function sayHi(name) { return 'Hi ' + name; }` into an arrow function."
+            exercise: "Write a function isEven(number) that returns true if number is even."
           },
           {
             id: 'js-b-func-2',
-            title: 'Callback Functions',
-            content: "A callback is a function passed as an argument to another function, to be executed later.",
+            title: 'Arrow Functions (ES6+)',
+            content: "Modern, shorter syntax. Great for callbacks.",
             codeExamples: [
               {
-                title: "Basic Callback",
-                code: `function process(name, callback) {
-    console.log("Processing " + name);
-    callback();
-}
+                title: "Arrow Function Syntax",
+                code: `// Regular
+function add(a, b) { return a + b; }
 
-process("User", () => console.log("Done!"));`
+// Arrow
+const add = (a, b) => a + b;
+
+// Single parameter
+const square = x => x * x;
+
+// No parameters
+const sayHi = () => "Hello!";`
               }
             ],
-            exercise: "Write a function `calculate` that takes two numbers and a callback function (operation) to apply to them."
+            exercise: "Convert this function to arrow: function multiply(a, b) { return a * b; }"
+          },
+          {
+            id: 'js-b-func-3',
+            title: 'Parameters & Return',
+            content: "Pass data into functions and get results back.",
+            codeExamples: [
+              {
+                title: "Default Parameters",
+                code: `function welcome(name = "Guest") {
+    return "Welcome " + name + "!";
+}
+
+console.log(welcome());      // Welcome Guest!
+console.log(welcome("Priya")); // Welcome Priya!`
+              },
+              {
+                title: "Multiple Return Values",
+                code: `function getUser() {
+    return {
+        name: "Arjun",
+        age: 25,
+        city: "Mumbai"
+    };
+}
+
+const user = getUser();
+console.log(user.name);`
+              }
+            ],
+            exercise: "Write a function calculateArea(length, width = length) that returns area of rectangle (or square if only one value given)."
           }
         ]
       },
+
       {
         id: 'js-beg-arr',
-        title: '5. Arrays & Objects',
+        title: '5. Arrays',
         subTopics: [
           {
             id: 'js-b-arr-1',
-            title: 'Array Methods',
-            content: "Arrays store ordered lists. Key methods:\n*   `push/pop`: Add/remove end\n*   `shift/unshift`: Add/remove start\n*   `map`: Transform elements\n*   `filter`: Select elements\n*   `reduce`: Accumulate result",
+            title: 'Creating & Basic Methods',
+            content: "Arrays are ordered lists. Index starts from 0.",
             codeExamples: [
               {
-                title: "Basic Methods",
-                code: `let fruits = ["Apple"];
-fruits.push("Banana"); // ["Apple", "Banana"]
-fruits.shift();        // ["Banana"]`
+                title: "Array Basics",
+                code: `let fruits = ["Apple", "Banana", "Mango"];
+
+fruits.push("Orange");     // add end
+fruits.pop();              // remove last
+fruits.unshift("Grape");   // add start
+fruits.shift();            // remove first
+
+console.log(fruits[1]);    // Banana
+console.log(fruits.length); // 3`
               },
               {
-                title: "Map & Filter",
-                code: `const nums = [1, 2, 3, 4];
-const doubled = nums.map(n => n * 2); // [2, 4, 6, 8]
-const evens = nums.filter(n => n % 2 === 0); // [2, 4]`
-              }
-            ],
-            exercise: "Given an array of prices, use `filter` to get prices > 50 and then `map` to format them with a '$' sign."
-          },
-          {
-            id: 'js-b-arr-2',
-            title: 'Objects',
-            content: "Objects store data in key-value pairs.",
-            codeExamples: [
-              {
-                title: "Object Literal",
-                code: `const car = {
-    brand: "Toyota",
-    model: "Corolla",
-    start: function() { console.log("Vroom"); }
-};
-console.log(car.brand); // Dot notation
-console.log(car["model"]); // Bracket notation`
-              },
-              {
-                title: "Looping Objects",
-                code: `for (let key in car) {
-    console.log(key, car[key]);
+                title: "Loop Through Array",
+                code: `for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+// for...of (modern)
+for (let fruit of fruits) {
+    console.log(fruit);
 }`
               }
             ],
-            exercise: "Create an object representing a 'Book' with properties `title`, `author` and a method `read()`."
+            exercise: "Create an array of 5 colors. Add 2 more, remove first one, then print all."
+          },
+          {
+            id: 'js-b-arr-2',
+            title: 'Important Array Methods',
+            content: "Must-know methods for real projects.",
+            codeExamples: [
+              {
+                title: "map() - Transform",
+                code: `const nums = [1, 2, 3, 4];
+const doubled = nums.map(n => n * 2);
+console.log(doubled); // [2,4,6,8]`
+              },
+              {
+                title: "filter() - Select",
+                code: `const scores = [45, 88, 92, 34, 76];
+const passed = scores.filter(s => s >= 50);
+console.log(passed); // [88,92,76]`
+              },
+              {
+                title: "find() & includes()",
+                code: `const users = ["Ram", "Shyam", "Priya"];
+console.log(users.includes("Ram"));     // true
+console.log(users.find(u => u === "Ram")); // "Ram"`
+              }
+            ],
+            exercise: "From array [10, 15, 20, 25, 30], use filter to get numbers > 18, then map to add 5 to each."
           }
         ]
       },
+
+      {
+        id: 'js-beg-obj',
+        title: '6. Objects',
+        subTopics: [
+          {
+            id: 'js-b-obj-1',
+            title: 'Object Literal & Properties',
+            content: "Objects store data in key-value pairs. Like real-world things.",
+            codeExamples: [
+              {
+                title: "Creating Objects",
+                code: `const student = {
+    name: "Amit",
+    age: 20,
+    grade: "A",
+    isPassed: true,
+    greet: function() {
+        console.log("Hi, I'm " + this.name);
+    }
+};
+
+console.log(student.name);      // Amit
+console.log(student["age"]);    // 20 (bracket notation)
+student.city = "Delhi";         // add new property
+student.age = 21;               // update`
+              },
+              {
+                title: "this Keyword",
+                code: `const car = {
+    brand: "Toyota",
+    start: function() {
+        console.log(this.brand + " started!");
+    }
+};
+car.start(); // Toyota started!`
+              }
+            ],
+            exercise: "Create a 'phone' object with brand, model, price, and a method ring() that logs 'Ringing...'"
+          }
+        ]
+      },
+
       {
         id: 'js-beg-dom',
-        title: '6. DOM Manipulation',
+        title: '7. DOM Manipulation',
         subTopics: [
           {
             id: 'js-b-dom-1',
-            title: 'Selecting & Changing Elements',
-            content: "The DOM (Document Object Model) connects JS to HTML.\n*   `getElementById`, `querySelector`\n*   `innerHTML`, `textContent`, `style`",
+            title: 'Selecting Elements',
+            content: "DOM = Document Object Model. JS uses it to change HTML/CSS.",
             codeExamples: [
               {
-                title: "Selection",
-                code: `const title = document.getElementById("main-title");
-const items = document.querySelectorAll(".item");`
-              },
-              {
-                title: "Modification",
-                code: `title.textContent = "New Title";
-title.style.color = "blue";
-title.classList.add("highlight");`
+                title: "Selection Methods",
+                code: `// By ID
+const title = document.getElementById("main-title");
+
+// By class/tag
+const items = document.querySelectorAll(".item");
+const firstBtn = document.querySelector("button");
+
+// Modern & powerful
+const allParagraphs = document.querySelectorAll("p");`
               }
             ],
-            exercise: "Select all `<li>` elements on a page and change their text color to green."
+            exercise: "Select an element with id='output' and change its text to your name."
           },
           {
             id: 'js-b-dom-2',
-            title: 'Events',
-            content: "React to user actions like clicks, typing, or hovering.",
+            title: 'Changing Content & Style',
+            content: "Update text, HTML, classes, and styles dynamically.",
             codeExamples: [
               {
-                title: "Event Listener",
-                code: `const btn = document.querySelector("button");
-btn.addEventListener("click", (e) => {
-    console.log("Clicked!", e.target);
+                title: "Text & HTML",
+                code: `title.textContent = "New Title";
+title.innerHTML = "<em>Important!</em>";`
+
+              },
+              {
+                title: "Style & Classes",
+                code: `title.style.color = "red";
+title.style.fontSize = "30px";
+title.classList.add("highlight");
+title.classList.remove("old");
+title.classList.toggle("dark-mode");`
+              },
+              {
+                title: "Create Elements",
+                code: `const newLi = document.createElement("li");
+newLi.textContent = "New Task";
+document.getElementById("list").appendChild(newLi);`
+              }
+            ],
+            exercise: "Create a button that adds a new <li> with text 'Hello' to a <ul> when clicked."
+          },
+          {
+            id: 'js-b-dom-3',
+            title: 'Events',
+            content: "React to user actions: click, type, hover, submit, etc.",
+            codeExamples: [
+              {
+                title: "Click Event",
+                code: `document.getElementById("btn").addEventListener("click", function() {
+    alert("Button clicked!");
+    this.style.backgroundColor = "green";
+});`
+              },
+              {
+                title: "Input & Key Events",
+                code: `document.getElementById("nameInput").addEventListener("input", function(e) {
+    console.log("Typing:", e.target.value);
+});
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+        console.log("Escape pressed!");
+    }
+});`
+              },
+              {
+                title: "Form Submit",
+                code: `document.getElementById("myForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Stop page reload
+    console.log("Form submitted!");
 });`
               }
             ],
-            exercise: "Create an input field that logs the current value to the console whenever the user types (`keyup` event)."
+            exercise: "Create an input that shows character count live as user types."
           }
         ]
       },
+
       {
         id: 'js-beg-proj',
-        title: '7. Beginner Projects',
+        title: '8. Beginner Projects (Build These!)',
         subTopics: [
           {
             id: 'js-b-proj-1',
-            title: 'Project 1: Calculator',
-            content: "Build a functional UI calculator. Use `eval()` carefully or build custom logic for arithmetic.",
-            codeExamples: [{ title: "Logic Snippet", code: `function calculate(expression) { return new Function('return ' + expression)(); }` }],
-            exercise: "Implement clear (C) and backspace functionality."
+            title: 'Project 1: Interactive Calculator',
+            content: "Full working calculator with buttons and display. Teaches DOM + events + logic.",
+            codeExamples: [
+              {
+                title: "Minimal html code to run javascript ",
+                code: `<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculator - JS Only</title>
+  <style>
+    input, button { font-size: 20px; padding: 10px; margin: 5px; }
+    button { width: 60px; }
+    #display { width: 280px; text-align: right; }
+  </style>
+</head>
+<body>
+
+  <h2>Simple Calculator</h2>
+  <input type="text" id="display" value="0" readonly>
+  <br><br>
+
+  <button onclick="clearAll()">C</button>
+  <button onclick="deleteLast()">←</button>
+  <button onclick="addToDisplay('/')">/</button>
+  <button onclick="addToDisplay('*')">×</button>
+  <br>
+  <button onclick="addToDisplay('7')">7</button>
+  <button onclick="addToDisplay('8')">8</button>
+  <button onclick="addToDisplay('9')">9</button>
+  <button onclick="addToDisplay('-')">-</button>
+  <br>
+  <button onclick="addToDisplay('4')">4</button>
+  <button onclick="addToDisplay('5')">5</button>
+  <button onclick="addToDisplay('6')">6</button>
+  <button onclick="addToDisplay('+')">+</button>
+  <br>
+  <button onclick="addToDisplay('1')">1</button>
+  <button onclick="addToDisplay('2')">2</button>
+  <button onclick="addToDisplay('3')">3</button>
+  <button onclick="addToDisplay('=')" style="height: 60px;">=</button>
+  <br>
+  <button onclick="addToDisplay('0')" style="width: 130px;">0</button>
+  <button onclick="addToDisplay('.')">.</button>
+ <script src="script.js"></script>
+</body>
+</html>`
+
+              },
+               {
+                title: "javascript code ",
+                code: `
+  <script>
+    // Get the display
+    const display = document.getElementById("display");
+
+    // Add number/operator to display
+    function addToDisplay(value) {
+      // If user presses "=", calculate result
+      if (value === "=") {
+        calculate();
+        return;
+      }
+
+      // If display is 0 or "Error", replace it
+      if (display.value === "0" || display.value === "Error") {
+        display.value = value;
+      } else {
+        display.value += value;
+      }
+    }
+
+    // Clear everything
+    function clearAll() {
+      display.value = "0";
+    }
+
+    // Delete last character
+    function deleteLast() {
+      if (display.value.length > 1) {
+        display.value = display.value.slice(0, -1);
+      } else {
+        display.value = "0";
+      }
+    }
+
+    // Calculate the result
+    function calculate() {
+      try {
+        // Replace × with * so eval understands
+        let expression = display.value.replace(/×/g, "*");
+        let result = eval(expression);
+
+        // Show result (max 10 digits)
+        display.value = result;
+      } catch (error) {
+        display.value = "Error";
+      }
+    }
+
+    // Bonus: Keyboard support
+    document.addEventListener("keydown", function(e) {
+      if (e.key >= "0" && e.key <= "9") addToDisplay(e.key);
+      if (e.key === ".") addToDisplay(".");
+      if (e.key === "+") addToDisplay("+");
+      if (e.key === "-") addToDisplay("-");
+      if (e.key === "*") addToDisplay("×");
+      if (e.key === "/") addToDisplay("/");
+      if (e.key === "Enter" || e.key === "=") addToDisplay("=");
+      if (e.key === "Backspace") deleteLast();
+      if (e.key === "Escape") clearAll();
+    });
+  </script>`
+              }
+            ],
+            exercise: "Add clear button and decimal point support."
           },
           {
             id: 'js-b-proj-2',
             title: 'Project 2: To-Do List',
-            content: "A list where you can add tasks, mark them done, and delete them. Uses DOM manipulation and Arrays.",
-            codeExamples: [{ title: "Adding Task", code: `function addTask(text) {
+            content: "Add, delete, and mark tasks as complete. Save to localStorage (bonus).",
+            codeExamples: [
+              {
+                title: "Minimal html code to run javascript ",
+                code: `<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List - Pure JS</title>
+  <style>
+    body { font-family: Arial; padding: 30px; background: #f4f4f4; }
+    input { padding: 10px; width: 300px; font-size: 18px; }
+    button { padding: 10px 15px; font-size: 18px; }
+    ul { list-style: none; padding: 0; margin-top: 20px; }
+    li { padding: 12px; background: white; margin: 8px 0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .done { text-decoration: line-through; color: gray; }
+    .delete { float: right; color: red; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>My To-Do List</h1>
+  <input type="text" id="taskInput" placeholder="Enter a new task..." onkeypress="if(event.key==='Enter') addTask()">
+  <button onclick="addTask()">Add Task</button>
+  <button onclick="clearAll()">Clear All</button>
+
+  <ul id="taskList"></ul>
+ <script src="script.js"></script>
+</body>
+</html>`
+
+              },
+             {
+  title: "JavaScript Code Only (Pure Logic)",
+  code: `
+// Get DOM elements
+const input = document.getElementById("taskInput");
+const list = document.getElementById("taskList");
+
+// Add new task
+function addTask() {
+  const text = input.value.trim();
+
+  if (!text) {
+    alert("Please enter a task!");
+    return;
+  }
+
+  // Create new task item
   const li = document.createElement("li");
-  li.innerText = text;
-  document.getElementById("list").appendChild(li);
-}` }],
-            exercise: "Add a 'checked' style (strikethrough) when a task is clicked."
-          },
-          {
-            id: 'js-b-proj-3',
-            title: 'Project 3: Stopwatch',
-            content: "Use `setInterval` to create a digital timer with Start, Stop, and Reset.",
-            codeExamples: [{ title: "Timer Logic", code: `let seconds = 0;
-let interval;
-function start() {
-    interval = setInterval(() => {
-        seconds++;
-        display.innerText = seconds;
-    }, 1000);
-}` }],
-            exercise: "Format the time to show MM:SS format."
+  li.innerHTML = \`
+    \${text}
+    <span class="delete" onclick="this.parentElement.remove()">Delete</span>
+  \`;
+
+  // Click task to toggle done (except delete button)
+  li.onclick = function(e) {
+    if (e.target.classList.contains("delete")) return;
+    this.classList.toggle("done");
+  };
+
+  // Add to list
+  list.appendChild(li);
+
+  // Clear input and focus
+  input.value = "";
+  input.focus();
+}
+
+// Clear all tasks
+function clearAll() {
+  if (confirm("Delete all tasks?")) {
+    list.innerHTML = "";
+  }
+}
+
+// Optional: Press Enter to add task
+// Add this to input: onkeypress="if(event.key==='Enter') addTask()"
+`
+}
+            
+            ],
+            exercise: "Format time as HH:MM:SS with leading zeros."
           },
           {
             id: 'js-b-proj-4',
-            title: 'Project 4: Password Generator',
-            content: "Generate random strings based on user-selected length.",
-            codeExamples: [{ title: "Randomizer", code: `const chars = "abcdef...12345...";
-const rand = Math.floor(Math.random() * chars.length);
-password += chars[rand];` }],
-            exercise: "Add checkboxes to include/exclude numbers and symbols."
+            title: 'Project 4: Random Password Generator',
+            content: "Generate secure passwords with options for length and character types.",
+            codeExamples: [
+              {
+                title: "Minimal Html code for javascript code",
+                code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Generator</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 40px; background: #f0f2f5; }
+    .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    input[type="number"] { width: 80px; padding: 10px; font-size: 18px; }
+    label { margin: 10px; font-size: 18px; }
+    button { padding: 12px 24px; margin: 10px; font-size: 16px; cursor: pointer; }
+    #password { font-size: 24px; margin: 20px; padding: 15px; background: #eee; border-radius: 8px; word-break: break-all; }
+    .copy { background: #4CAF50; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Random Password Generator</h1>
+
+    <p>Length: <input type="number" id="length" value="16" min="4" max="50"></p>
+
+    <p>
+      <label><input type="checkbox" id="uppercase" checked> A-Z</label>
+      <label><input type="checkbox" id="lowercase" checked> a-z</label>
+      <label><input type="checkbox" id="numbers" checked> 0-9</label>
+      <label><input type="checkbox" id="symbols" checked> !@#$%^&*</label>
+    </p>
+
+    <button onclick="generate()">Generate Password</button>
+    <button class="copy" onclick="copyPassword()">Copy</button>
+
+    <div id="password">Click "Generate" to create a password</div>
+  </div>
+
+  <!-- Link to external JS file -->
+  <script src="script.js"></script>
+</body>
+</html>`
+              },
+              {
+                title: "full javascript code for password logic",
+                code: `function generate() {
+  const length = parseInt(document.getElementById("length").value);
+  const upper = document.getElementById("uppercase").checked;
+  const lower = document.getElementById("lowercase").checked;
+  const nums = document.getElementById("numbers").checked;
+  const syms = document.getElementById("symbols").checked;
+
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const numberChars = "0123456789";
+  const symbolChars = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+  let allChars = "";
+  if (lower) allChars += lowerChars;
+  if (upper) allChars += upperChars;
+  if (nums)  allChars += numberChars;
+  if (syms)  allChars += symbolChars;
+
+  if (allChars === "") {
+    alert("Please select at least one option!");
+    return;
+  }
+
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * allChars.length);
+    password += allChars[randomIndex];
+  }
+
+  document.getElementById("password").textContent = password;
+}
+
+function copyPassword() {
+  const passwordText = document.getElementById("password").textContent;
+  if (passwordText && passwordText !== "Click \"Generate\" to create a password") {
+    navigator.clipboard.writeText(passwordText);
+    alert("Password copied to clipboard!");
+  }
+}`
+              }
+            ],
+            exercise: "Add checkboxes to include/exclude symbols and numbers."
+          },
+          {
+            id: 'js-b-proj-5',
+            title: 'Project 5: BMI Calculator',
+            content: "Input height/weight → calculate BMI → show category (Underweight, Normal, etc.)",
+            codeExamples: [
+              {
+                title: "BMI Formula",
+                code: `function calculateBMI(weight, height) {
+    return (weight / (height * height)).toFixed(2);
+}
+
+if (bmi < 18.5) category = "Underweight";
+else if (bmi < 25) category = "Normal";
+else if (bmi < 30) category = "Overweight";
+else category = "Obese";`
+              }
+            ],
+            exercise: "Add input validation and clear button."
           }
         ]
       }
     ]
   },
+  
   Intermediate: {
     introduction: "🔵 Level 2: Intermediate. Learn modern JavaScript (ES6+) and build industry-level apps.",
     topics: [

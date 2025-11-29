@@ -202,6 +202,7 @@ const App: React.FC = () => {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: i * 0.15 }}
+              whileHover={hasContent ? 'hover' : ''}
               whileHover={hasContent ? { y: -16 } : {}}
               disabled={!hasContent}
               onClick={() => handleLevelSelect(level)}
@@ -274,12 +275,14 @@ const App: React.FC = () => {
                 <div key={topic.id} className="mb-2">
                   <button
                     onClick={() => toggleTopicExpand(topic.id)}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all ${
-                      open ? 'bg-blue-600 text-white' : 'hover:bg-white/50 dark:hover:bg-slate-800'
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all text-left ${
+                      open 
+                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-500/30' 
+                      : 'hover:bg-white/50 dark:hover:bg-slate-800/50 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <span className="font-medium">{topic.title}</span>
-                    <Icon name="ChevronDown" size={18} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+                    <span className="font-medium text-sm flex-1">{topic.title}</span>
+                    <Icon name="ChevronDown" size={16} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
                   </button>
                   <AnimatePresence>
                     {open && (
@@ -287,16 +290,16 @@ const App: React.FC = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden"
+                        className="overflow-hidden ml-2 border-l-2 border-slate-200 dark:border-slate-700"
                       >
                         {topic.subTopics.map(sub => (
                           <button
                             key={sub.id}
                             onClick={() => setActiveSubTopic(sub)}
-                            className={`w-full text-left px-8 py-3 text-sm rounded-lg transition-colors ${
+                            className={`w-full text-left px-4 py-2.5 text-sm rounded-r-lg transition-all my-0.5 block ${
                               activeSubTopic?.id === sub.id
-                                ? 'bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 font-semibold shadow-md'
-                                : 'hover:bg-white/30 dark:hover:bg-slate-700/50'
+                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-semibold border-l-2 border-blue-500 -ml-[2px]'
+                                : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/50 dark:hover:bg-slate-800/30'
                             }`}
                           >
                             {sub.title}
