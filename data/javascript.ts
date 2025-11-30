@@ -822,16 +822,81 @@ function copyPassword() {
             content: "Input height/weight → calculate BMI → show category (Underweight, Normal, etc.)",
             codeExamples: [
               {
-                title: "BMI Formula",
-                code: `function calculateBMI(weight, height) {
-    return (weight / (height * height)).toFixed(2);
-}
+                title: "minimal Html code for BMI",
+                code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; background: #f0f8ff; }
+    .box { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    input { width: 100%; padding: 12px; margin: 10px 0; font-size: 18px; border: 2px solid #ddd; border-radius: 8px; }
+    button { padding: 12px 30px; font-size: 18px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    #result { margin-top: 20px; font-size: 24px; font-weight: bold; }
+  </style>
+</head>
+<body>
 
-if (bmi < 18.5) category = "Underweight";
-else if (bmi < 25) category = "Normal";
-else if (bmi < 30) category = "Overweight";
-else category = "Obese";`
-              }
+  <div class="box">
+    <h1>BMI Calculator</h1>
+    <p>Weight (kg): <input type="number" id="weight" placeholder="e.g. 70"></p>
+    <p>Height (cm): <input type="number" id="height" placeholder="e.g. 170"></p>
+    <button onclick="calculateBMI()">Calculate BMI</button>
+    <div id="result">Your BMI will appear here</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>`
+              },
+               {
+  title: "Complete BMI Calculator – Pure JavaScript",
+  code: `function calculateBMI() {
+  // Get values from inputs
+  const weight = parseFloat(document.getElementById("weight").value);
+  const heightCm = parseFloat(document.getElementById("height").value);
+
+  // Validate inputs
+  if (!weight || !heightCm || weight <= 0 || heightCm <= 0) {
+    document.getElementById("result").innerHTML = 
+      '<span style="color:red;">Please enter valid weight and height!</span>';
+    return;
+  }
+
+  // Convert height to meters
+  const heightM = heightCm / 100;
+
+  // Calculate BMI
+  const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+  // Determine category
+  let category = "";
+  let color = "";
+
+  if (bmi < 18.5) {
+    category = "Underweight";
+    color = "#f39c12";
+  } else if (bmi < 25) {
+    category = "Normal weight";
+    color = "#2ecc71";
+  } else if (bmi < 30) {
+    category = "Overweight";
+    color = "#e67e22";
+  } else {
+    category = "Obese";
+    color = "#e74c3c";
+  }
+
+  // Display result
+  document.getElementById("result").innerHTML = \`
+    Your BMI: <span style="color:\${color}; font-size:32px;">\${bmi}</span><br>
+    <strong>\${category}</strong>
+  \`;
+}`
+}
             ],
             exercise: "Add input validation and clear button."
           }
