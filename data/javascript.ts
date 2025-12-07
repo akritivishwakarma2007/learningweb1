@@ -2,7 +2,7 @@ import { LanguageContent } from '../types';
 
 export const javascriptContent: LanguageContent = {
   Beginner: {
-    introduction: "Level 1: Beginner. Master JavaScript fundamentals, DOM manipulation, events, and build real interactive web apps from scratch. No prior knowledge needed.",
+    introduction: "🟢 Level 1: Beginner. Master JavaScript fundamentals, DOM manipulation, events, and build real interactive web apps from scratch. No prior knowledge needed.",
     topics: [
       {
         id: 'js-beg-intro',
@@ -408,7 +408,10 @@ console.log(users.find(u => u === "Ram")); // "Ram"`
 console.log(student.name);      // Amit
 console.log(student["age"]);    // 20 (bracket notation)
 student.city = "Delhi";         // add new property
-student.age = 21;               // update`
+student.age = 21;               // update
+console.log(student["age"]);
+console.log(student.city);
+console.log(student.age);`
               },
               {
                 title: "this Keyword",
@@ -431,86 +434,216 @@ car.start(); // Toyota started!`
         title: '7. DOM Manipulation',
         subTopics: [
           {
-            id: 'js-b-dom-1',
-            title: 'Selecting Elements',
-            content: "DOM = Document Object Model. JS uses it to change HTML/CSS.",
+            id: 'js-b-dom-select',
+            title: '1. Selecting Elements',
+            content: "To manipulate the DOM, you first need to select elements.\n\n*   **`getElementById(id)`**: Selects a single element by its ID.\n*   **`getElementsByClassName(class)`**: Selects all elements with a class (returns HTMLCollection).\n*   **`getElementsByTagName(tag)`**: Selects elements by tag name (e.g., 'p').\n*   **`querySelector(selector)`**: Selects the *first* element matching a CSS selector.\n*   **`querySelectorAll(selector)`**: Selects *all* matching elements (returns NodeList).",
             codeExamples: [
               {
-                title: "Selection Methods",
-                code: `// By ID
-const title = document.getElementById("main-title");
+                title: "Selection Method by ID",
+                code: `<h1 id="title">Hello, World!</h1>
 
-// By class/tag
-const items = document.querySelectorAll(".item");
-const firstBtn = document.querySelector("button");
+<script>
+  const title = document.getElementById("title");
+  console.log(title);  // Logs the <h1> element with id="title"
+</script>
+`
+              },
+              {
+                title: "Selection Method by class ",
+                code: `<p class="text">First paragraph.</p>
+<p class="text">Second paragraph.</p>
 
-// Modern & powerful
-const allParagraphs = document.querySelectorAll("p");`
+<script>
+  const paragraphs = document.getElementsByClassName("text");
+  console.log(paragraphs);  // Logs HTMLCollection of elements with class="text"
+</script>
+`
+              },
+              {
+                title: "Selection Method by tagname",
+                code: `<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+
+<script>
+  const paragraphs = document.getElementsByTagName("p");
+  console.log(paragraphs);  // Logs HTMLCollection of <p> tags
+</script>
+`
+              },
+               {
+                title: "querySelector",
+                code: `<p class="highlight">This is highlighted.</p>
+
+<script>
+  const paragraph = document.querySelector(".highlight");
+  console.log(paragraph);  // Logs the first <p> element with class="highlight"
+</script>
+
+`
+              },
+               {
+                title: "querySelectorAll",
+                code: `<p class="text">Text 1</p>
+<p class="text">Text 2</p>
+
+<script>
+  const paragraphs = document.querySelectorAll(".text");
+  console.log(paragraphs);  // Logs NodeList of all <p> with class="text"
+</script>
+
+`
               }
             ],
-            exercise: "Select an element with id='output' and change its text to your name."
+            exercise: "Create 3 paragraphs with class 'text'. Use `querySelectorAll` to select them and log the NodeList."
           },
           {
-            id: 'js-b-dom-2',
-            title: 'Changing Content & Style',
-            content: "Update text, HTML, classes, and styles dynamically.",
+            id: 'js-b-dom-content',
+            title: '2. Changing Content',
+            content: "You can read or modify the content inside elements.\n\n*   **`textContent`**: Gets/sets visible text (ignores HTML tags).\n*   **`innerHTML`**: Gets/sets HTML content (can inject tags).\n*   **`innerText`**: Similar to textContent but aware of styling (e.g., won't show hidden text).",
             codeExamples: [
               {
-                title: "Text & HTML",
-                code: `title.textContent = "New Title";
-title.innerHTML = "<em>Important!</em>";`
+                title: "textContent",
+                code: `<h1 id="header">Original Text</h1>
 
+<script>
+  const header = document.getElementById("header");
+  header.textContent = "New Text";  // Changes the text of the h1 element
+</script>
+`
               },
               {
-                title: "Style & Classes",
-                code: `title.style.color = "red";
-title.style.fontSize = "30px";
-title.classList.add("highlight");
-title.classList.remove("old");
-title.classList.toggle("dark-mode");`
+                title: "innerHTML",
+                code: `<div id="container">This is <strong>bold</strong> text.</div>
+
+<script>
+  const container = document.getElementById("container");
+  container.innerHTML = "New <em>italic</em> content";  // Replaces HTML content inside the div
+</script>
+`
               },
-              {
-                title: "Create Elements",
-                code: `const newLi = document.createElement("li");
-newLi.textContent = "New Task";
-document.getElementById("list").appendChild(newLi);`
-              }
             ],
-            exercise: "Create a button that adds a new <li> with text 'Hello' to a <ul> when clicked."
+            exercise: "Select a `div` and use `innerHTML` to insert a `<ul>` list with 3 items inside it."
           },
           {
-            id: 'js-b-dom-3',
-            title: 'Events',
-            content: "React to user actions: click, type, hover, submit, etc.",
+            id: 'js-b-dom-style',
+            title: '3. Changing Styles',
+            content: "Modify element appearance directly via JS.\n\n*   **`element.style.property`**: Inline styles (camelCase properties).\n\n**Note**: For cleaner code, toggle CSS classes instead.",
             codeExamples: [
               {
-                title: "Click Event",
-                code: `document.getElementById("btn").addEventListener("click", function() {
-    alert("Button clicked!");
-    this.style.backgroundColor = "green";
-});`
-              },
-              {
-                title: "Input & Key Events",
-                code: `document.getElementById("nameInput").addEventListener("input", function(e) {
-    console.log("Typing:", e.target.value);
-});
+                title: "Styles",
+                code: `<div id="box">Styled box</div>
 
-document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") {
-        console.log("Escape pressed!");
-    }
+<script>
+  const box = document.getElementById("box");
+  box.style.backgroundColor = "lightblue";
+  box.style.width = "200px";
+  box.style.height = "100px";
+  box.style.textAlign = "center";
+</script>
+`
+              }
+            ],
+            exercise: "Create a square div. Use JS to change its width to '300px' and background to 'red'."
+          },
+          {
+            id: 'js-b-dom-addrem',
+            title: '4. Adding & Removing Elements',
+            content: "Dynamically create or delete elements.\n\n*   **`createElement(tag)`**: Creates a new node.\n*   **`appendChild(node)`**: Adds node as the last child.\n*   **`remove()`**: Deletes the element.\n*   **`insertBefore(newNode, referenceNode)`**: Inserts before a specific child.",
+            codeExamples: [
+              {
+                title: "Creating & Appending",
+                code: `// Create
+const newBtn = document.createElement("button");
+newBtn.textContent = "Click Me";
+
+// Add to body
+document.body.appendChild(newBtn);`
+              },
+              {
+                title: "Removing",
+                code: `const oldItem = document.getElementById("obsolete");
+oldItem.remove(); // Gone!`
+              }
+            ],
+            exercise: "Create a loop that generates 5 `<li>` elements numbered 1 to 5 and appends them to a `<ul>`."
+          },
+          {
+            id: 'js-b-dom-event',
+            title: '5. Event Handling',
+            content: "Events make pages interactive. Common events: `click`, `input`, `submit`, `keydown`.\n\n*   **`addEventListener(event, function)`**: The standard way to listen.\n*   **`removeEventListener`**: Stops listening.",
+            codeExamples: [
+              {
+                title: "Click Listener",
+                code: `const btn = document.querySelector("button");
+btn.addEventListener("click", () => {
+    alert("Button Clicked!");
 });`
               },
               {
-                title: "Form Submit",
-                code: `document.getElementById("myForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // Stop page reload
-    console.log("Form submitted!");
+                title: "Event Object (e)",
+                code: `const input = document.querySelector("input");
+input.addEventListener("keyup", (e) => {
+    console.log("Key pressed:", e.key);
+    console.log("Current value:", e.target.value);
 });`
               }
             ],
-            exercise: "Create an input that shows character count live as user types."
+            exercise: "Create a button that toggles the background color of the body between white and dark gray on every click."
+          },
+          {
+            id: 'js-b-dom-class',
+            title: '6. Class Manipulation',
+            content: "The best way to style elements is by toggling CSS classes.\n\n*   **`classList.add()`**\n*   **`classList.remove()`**\n*   **`classList.toggle()`** (Adds if missing, removes if present)",
+            codeExamples: [
+              {
+                title: "Toggling Classes",
+                code: `const box = document.getElementById("box");
+
+// Add 'active' class
+box.classList.add("active");
+
+// Toggle 'hidden' on click
+box.addEventListener("click", () => {
+    box.classList.toggle("highlight");
+});`
+              }
+            ],
+            exercise: "Create a CSS class `.hidden { display: none; }`. Use a button to toggle this class on a paragraph."
+          },
+          {
+            id: 'js-b-dom-trav',
+            title: '7. Traversing the DOM',
+            content: "Move between related elements.\n\n*   **`parentNode`**: Parent element.\n*   **`children`**: Child elements collection.\n*   **`nextElementSibling` / `previousElementSibling`**: Siblings.",
+            codeExamples: [
+              {
+                title: "Traversal",
+                code: `const item = document.querySelector(".item");
+const parent = item.parentNode;
+const nextItem = item.nextElementSibling;
+
+console.log(parent.children.length); // Count siblings`
+              }
+            ],
+            exercise: "Select a list item and log the text content of its previous sibling."
+          },
+          {
+            id: 'js-b-dom-attr',
+            title: '8. Attributes',
+            content: "Get or set HTML attributes like `src`, `href`, `id`.\n\n*   **`setAttribute(name, value)`**\n*   **`getAttribute(name)`**\n*   **`removeAttribute(name)`**",
+            codeExamples: [
+              {
+                title: "Manipulating Attributes",
+                code: `const img = document.querySelector("img");
+
+// Change Image
+img.setAttribute("src", "new-image.jpg");
+
+// Get Link
+const link = document.querySelector("a");
+console.log(link.getAttribute("href"));`
+              }
+            ],
+            exercise: "Create an image tag. Use JS to change its `src` to a random placeholder image URL on click."
           }
         ]
       },
@@ -722,6 +855,20 @@ function clearAll() {
             
             ],
             exercise: "Format time as HH:MM:SS with leading zeros."
+          },
+          {
+            id: 'js-b-proj-3',
+            title: 'Project 3: Stopwatch',
+            content: "Use `setInterval` to create a digital timer with Start, Stop, and Reset.",
+            codeExamples: [{ title: "Timer Logic", code: `let seconds = 0;
+let interval;
+function start() {
+    interval = setInterval(() => {
+        seconds++;
+        display.innerText = seconds;
+    }, 1000);
+}` }],
+            exercise: "Format the time to show MM:SS format."
           },
           {
             id: 'js-b-proj-4',
@@ -1410,7 +1557,7 @@ console.log(4);
         ]
       },
       {
-        id: 'js-adv-react',
+        id: 'js-adv-frame',
         title: '5. Frontend Frameworks (React)',
         subTopics: [
           {
@@ -1450,31 +1597,37 @@ const theme = useContext(ThemeContext);`
           {
             id: 'js-a-no-1',
             title: 'Express & REST APIs',
-            content: "Building servers using Express. Middleware pattern.",
+            content: "Building servers using Express. Middleware, Routing, Controllers.",
             codeExamples: [
               {
-                title: "Express App",
+                title: "Express Server",
                 code: `const express = require('express');
 const app = express();
-app.use(express.json()); // Middleware
 
-app.get('/api', (req, res) => res.json({ msg: 'Hi' }));
+app.get('/api/users', (req, res) => {
+    res.json([{ id: 1, name: "John" }]);
+});
+
 app.listen(3000);`
               }
             ],
-            exercise: "Create a POST endpoint that accepts JSON data and saves it to an array."
+            exercise: "Create a POST endpoint that accepts JSON data and returns it."
           },
           {
             id: 'js-a-no-2',
-            title: 'Auth & DB',
-            content: "JWT (JSON Web Tokens) for stateless auth. Connecting to MongoDB.",
+            title: 'Database & Auth',
+            content: "Connecting to MongoDB/Postgres. JWT Authentication.",
             codeExamples: [
               {
-                title: "JWT Signing",
-                code: `const token = jwt.sign({ id: user._id }, 'secret_key', { expiresIn: '1h' });`
+                title: "Mongoose Model",
+                code: `const User = mongoose.model('User', { name: String, email: String });`
+              },
+              {
+                title: "JWT Sign",
+                code: `const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });`
               }
             ],
-            exercise: "Create a middleware that verifies the JWT token from the request header."
+            exercise: "Write a middleware function that verifies a JWT token."
           }
         ]
       },
